@@ -3,7 +3,9 @@
 body, html {
     background-color: black;
     min-width: 250px;
+    max-width: 276px;
     min-height: 100px;
+    max-height: 600px;
     padding: 5px;
 }
 
@@ -17,8 +19,12 @@ body, html {
     margin: auto;
 }
 
+.header .logo:hover {
+    content: url("../images/stick logo.png")
+}
+
 .container {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .newNoteLabel {
@@ -34,6 +40,7 @@ body, html {
     position: relative;
     resize: none;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .newNote:focus {

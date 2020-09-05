@@ -13,9 +13,9 @@
   "browser_action": {
     "default_popup": "templates/popup.html",
     "default_title": "stick",
-    "default_icon": "static/images/stick logo.png"
+    "default_icon": "static/images/stick logo dark.png"
   },
   "icons": {
-    "128": "static/images/stick logo.png"
+    "128": "static/images/stick logo dark.png"
   }
 }
