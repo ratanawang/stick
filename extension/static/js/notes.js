@@ -1,35 +1,33 @@
-function showBlacklist() {
-    chrome.storage.sync.get(['blacklist'], function (result) {
-        if (result.blacklist.length > 0) {
-            for (var link in result.blacklist) {
-                document.getElementById('sitelist').innerHTML += '<div class="link">' +
+function showNotes() {
+    chrome.storage.sync.get(['notes'], function (result) {
+        if (result.notes.length > 0) {
+            for (let note in result.notes) {
+                document.getElementById('notes').innerHTML += '<div class="link">' +
                     '<button class="trash">' +
-                    '<i class="material-icons w3-large">delete</i></button>' + result.blacklist[link] + '</div>';
+                    '<i class="material-icons w3-large">delete</i></button>' + result.notes[note] + '</div>';
             }
         } else {
-            document.getElementById('sitelist').innerHTML = "You have not blacklisted any website."
+            document.getElementById('notes').innerHTML = "You have no notes."
         }
     })
 
     document.querySelector('.text').addEventListener('click', function (e) {
         if (e.target && e.target.matches("i")) {
             let delLink = e.target
-            let url = delLink.parentElement.parentElement.innerText.substring(7)
-            chrome.storage.sync.get(['blacklist'], function (result) {
-                const newList = result.blacklist;
+            let note = delLink.parentElement.parentElement.innerText.substring(6)
+            chrome.storage.sync.get(['notes'], function (result) {
+                const newList = result.notes;
                 for (var i = 0; i < newList.length; i++) {
-                    if (newList[i] == url) {
+                    if (newList[i] == note) {
                         newList.splice(i, 1);
                     }
                 }
-                chrome.storage.sync.set({'blacklist': newList}, function () {
+                chrome.storage.sync.set({'notes': newList}, function () {
                 })
             })
-            chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-                    chrome.tabs.sendMessage(tabs[0].id, {message: "sendDeleteMessage"});
-            })
         }
+        location.reload()
     });
 }
 
-window.onload = function() {showBlacklist()};
+window.onload = function() {showNotes()};
