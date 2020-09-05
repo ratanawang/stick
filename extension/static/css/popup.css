@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+
+body, html {
+    background-color: black;
+    min-width: 250px;
+    min-height: 100px;
+    padding: 5px;
+}
+
+/* header */
+
+.header .logo {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    left: calc(50% - 50px);
+    margin: auto;
+}
+
+.container {
+    padding: 10px;
+}
+
+.newNoteLabel {
+    color: white;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+.newNote {
+    background-color: #0a0a14;
+    border: none;
+    color: white;
+    width: 100%;
+    position: relative;
+    resize: none;
+    border-radius: 5px;
+}
+
+.newNote:focus {
+    outline: none;
+}
