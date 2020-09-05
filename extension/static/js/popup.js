@@ -21,13 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 }, false)
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.viewNotes').addEventListener('click', onclick, false)
-    function onclick () {
-        window.location.href="notes.html";
-    }
-}, false)
-
 document.addEventListener('input', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'textarea') return;
 	autoExpand(event.target);
