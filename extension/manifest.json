@@ -1,7 +1,7 @@
 {
-  "name": "Stick",
+  "name": "stick",
   "version": "1.0",
-  "description": "Take notes efficiently using Stick!",
+  "description": "Take notes efficiently with stick!",
   "permissions": ["storage", "tabs"],
   "manifest_version": 2,
   "content_scripts": [
@@ -12,10 +12,10 @@
   ],
   "browser_action": {
     "default_popup": "templates/popup.html",
-    "default_title": "Stick",
-    "default_icon": "static/images/logo.png"
+    "default_title": "stick",
+    "default_icon": "static/images/stick logo.png"
   },
   "icons": {
-    "128": "static/images/logo.png"
+    "128": "static/images/stick logo.png"
   }
 }
