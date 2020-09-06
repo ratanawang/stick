@@ -23,7 +23,7 @@ body {
     position: relative;
 }
 
-.notes {
+#notes {
     min-height: 80%;
     width: 50%;
     position: relative;
