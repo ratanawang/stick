@@ -1,0 +1,53 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+
+}
+
+.note{
+    width: 300px;
+    height: 250px;
+    position: relative;
+    border-radius: 5px;
+    margin: 20px;
+}
+.note p{
+    letter-spacing: 3px;
+    top: 20%;
+    font-size: 28px;
+    text-align:center;
+    font-weight: 500;
+}
+.note::before, .note::after{
+    center: "";
+    width: 40%;
+    height: 10px;
+    position: absolute;
+    bottom: 10px;
+    box-shadow: 0 8px 1px #696666;
+}
+.note::before{
+    left:10px;
+    tranform: skewX(-5deg) rotateX(-5deg);
+}
+.note:after{
+    right: 10px;
+    transform: skewY(5deg) rotateX(5deg);
+}
+.line{
+    width: 100%;
+    height:25px;
+}
+.container div:nth-child(1){
+    background: #ffe739;
+}
+.container div:nth-child(1) .line{
+    background: linear-gradient(#ffe739, #ffc317);
+}
+.container div:nth-child(2) .line{
+    background: linear-gradient(#98f571, #86dc6a);
+}
+.container div:nth-child(2){
+    background: #98f57a;
+}
