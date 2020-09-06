@@ -3,18 +3,14 @@ if(window.location.href == 'http://127.0.0.1:5000/'){
         if (result.notes.length > 0) {
             for (let note in result.notes) {
                 document.getElementById('notes').innerHTML += '<div class="link">' +
-                    '<button class="trash">X</button><textarea id=' + note + '>' + result.notes[note] + '</textarea><button class="save">Edit</button></div>';
+                    '<button class="trash">X</button><textarea id=' + note + '>' + result.notes[note] + '</textarea></div>';
             }
         }
     })
 
     document.querySelector('.text').addEventListener('click', function (e) {
         if (e.target && e.target.matches(".trash")) {
-            let toDelete = e.target;
-            let note = toDelete.parentElement.innerText.substring(1);
-            alert(note)
-            note = note.substring(0, note.length-4)
-            alert(note)
+            let note = document.activeElement.nextElementSibling.value;
             note = note.replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/\r?\n|\r/g, " ").trim();
@@ -28,24 +24,7 @@ if(window.location.href == 'http://127.0.0.1:5000/'){
                 }
                 chrome.storage.sync.set({'notes': newList}, function () {})
             })
-        }
-    });
-
-    document.querySelector('.text').addEventListener('click', function (e) {
-        if (e.target && e.target.matches(".edit")) {
-            let delLink = e.target;
-            let note = delLink.parentElement.innerText.substring(1);
-            note = note.substring(0, note.length-4)
-            note = note.replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/\r?\n|\r/g, " ").trim();
-            chrome.storage.sync.get(['notes'], function (result) {
-                let newList = result.notes;
-                let index = newList.indexOf(note);
-                alert(index)
-                chrome.storage.sync.set({'notes': newList}, function () {})
-            })
-            delLink.parentElement.innerHTML = '<textarea></textarea>'
+            location.reload()
         }
     });
 
@@ -57,13 +36,9 @@ if(window.location.href == 'http://127.0.0.1:5000/'){
                     .replace(/>/g, '&gt;')
                     .replace(/\r?\n|\r/g, " ").trim();
                 chrome.storage.sync.get(['notes'], function (result) {
-                    let updatedNotes;
-                    if (result.notes != null) {
-                        updatedNotes = result.notes;
-                    } else {
-                        updatedNotes = [];
-                    }
-                    updatedNotes.push(newNoteText);
+                    let updatedNotes = result.notes;
+                    index = parseInt(document.activeElement.id)
+                    updatedNotes[index] = newNoteText;
                     chrome.storage.sync.set({'notes': updatedNotes}, function () {
                         // alert("New note added!");
                     })
