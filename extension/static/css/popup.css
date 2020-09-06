@@ -8,6 +8,13 @@ body, html {
     min-height: 100px;
     max-height: 600px;
     padding: 5px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
 }
 
 /* header */
@@ -59,7 +66,6 @@ body, html {
     font-family: monospace;
     font-size: 14px;
     overflow-x: scroll;
-
 }
 
 .trash {

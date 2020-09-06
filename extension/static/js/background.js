@@ -1,5 +1,5 @@
 function getword(info,tab) {
-    if (info.selectionText.trim() != null) {
+    if (info.selectionText != null && info.selectionText.trim() != "") {
         info.selectionText = info.selectionText.replace(/</g, '&lt;').replace(/>/g, '&gt;')
             .replace(/\r?\n|\r/g, " ").trim()
         alert(info.selectionText)
