@@ -65,7 +65,9 @@ textarea {
     border: none;
     height: 1em;
 }
-
+::-webkit-scrollbar {
+    display: none;
+}
 textarea:focus {
     outline: none;
 }
