@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-
-}, false)
-
 document.addEventListener('input', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'textarea') return;
 	autoExpand(event.target);
