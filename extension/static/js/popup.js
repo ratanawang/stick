@@ -7,14 +7,15 @@ document.addEventListener('input', function (event) {
 	autoExpand(event.target);
 }, false);
 
-document.addEventListener('keypress', function (event) {
-	if (event.keyCode == 13) {
+document.addEventListener('keydown', function (event) {
+	if (event.code === "Enter") {
 	    let newNoteText = document.getElementById("newnote").value
-        if (newNoteText != null && newNoteText.trim() != "") {
-            newNoteText = newNoteText.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(/\r?\n|\r/g, " ").trim()
-            alert(newNoteText)
+        if (newNoteText != null && newNoteText.trim() !== "") {
+            newNoteText = newNoteText.replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\r?\n|\r/g, " ").trim();
             chrome.storage.sync.get(['notes'], function (result) {
+                let updatedNotes;
                 if (result.notes != null) {
                     updatedNotes = result.notes;
                 } else {
@@ -22,7 +23,7 @@ document.addEventListener('keypress', function (event) {
                 }
                 updatedNotes.push(newNoteText);
                 chrome.storage.sync.set({'notes': updatedNotes}, function () {
-                    alert("New note added!");
+                    // alert("New note added!");
                 })
             })
             location.reload()
@@ -50,31 +51,34 @@ let autoExpand = function (field) {
 };
 
 function showNotes() {
+
+    document.getElementById("newnote").focus();
+
     chrome.storage.sync.get(['notes'], function (result) {
         if (result.notes.length > 0) {
             for (let note in result.notes) {
                 document.getElementById('notes').innerHTML += '<div class="link">' +
-                    '<button class="trash">' +
-                    '<i class="material-icons w3-large">delete</i></button>' + result.notes[note] + '</div>';
+                    '<button class="trash">X</button>' + result.notes[note] + '</div>';
             }
         }
     })
 
     document.querySelector('.text').addEventListener('click', function (e) {
-        if (e.target && e.target.matches("i")) {
-            let delLink = e.target
-            let note = delLink.parentElement.parentElement.innerText.substring(6)
+        if (e.target && e.target.matches("button")) {
+            let delLink = e.target;
+            let note = delLink.parentElement.innerText.substring(1);
             note = note.replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\r?\n|\r/g, " ").trim();
             chrome.storage.sync.get(['notes'], function (result) {
-                const newList = result.notes;
-                for (var i = 0; i < newList.length; i++) {
-                    if (newList[i] == note) {
+                let newList = result.notes;
+                for (let i = 0; i < newList.length; i++) {
+                    if (newList[i] === note) {
                         newList.splice(i, 1);
+                        break;
                     }
                 }
-                chrome.storage.sync.set({'notes': newList}, function () {
-                })
+                chrome.storage.sync.set({'notes': newList}, function () {})
             })
         }
         location.reload()

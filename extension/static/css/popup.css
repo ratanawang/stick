@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 
 body, html {
     background-color: black;
@@ -33,7 +34,7 @@ body, html {
 }
 
 .newNote {
-    background-color: #0a0a14;
+    background-color: transparent;
     border: none;
     color: white;
     width: 100%;
@@ -41,12 +42,35 @@ body, html {
     resize: none;
     border-radius: 5px;
     margin-top: 10px;
+    font-size: 14px;
 }
 
 .newNote:focus {
     outline: none;
 }
 
+.link {
+    display: flex;
+    margin: 15px 0;
+}
+
 .text {
     color: white;
+    font-family: monospace;
+    font-size: 14px;
+    overflow-x: scroll;
+
+}
+
+.trash {
+    color: white;
+    font-family: 'Balsamiq Sans', cursive;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-right: 8px;
+}
+
+.trash:hover {
+    color: red;
 }
