@@ -2,8 +2,9 @@ if(window.location.href == 'http://127.0.0.1:5000/'){
     chrome.storage.sync.get(['notes'], function (result) {
         if (result.notes.length > 0) {
             for (let note in result.notes) {
-                document.getElementById('notes').innerHTML += '<div class="link">' +
-                    '<button class="trash">X</button><textarea id=' + note + '>' + result.notes[note] + '</textarea></div>';
+                document.getElementById('notes').innerHTML += '<div class="link">'
+                    + '<button class="trash">X</button><textarea class="textarea-note" contenteditable="true" id=' + note + '>'
+                    + result.notes[note] + '</textarea></div>';
             }
         }
     })
@@ -30,20 +31,41 @@ if(window.location.href == 'http://127.0.0.1:5000/'){
 
     document.addEventListener('keydown', function (event) {
         if (event.code === "Enter") {
-            let newNoteText = document.activeElement.value
-            if (newNoteText != null && newNoteText.trim() !== "") {
-                newNoteText = newNoteText.replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/\r?\n|\r/g, " ").trim();
-                chrome.storage.sync.get(['notes'], function (result) {
-                    let updatedNotes = result.notes;
-                    index = parseInt(document.activeElement.id)
-                    updatedNotes[index] = newNoteText;
-                    chrome.storage.sync.set({'notes': updatedNotes}, function () {
-                        // alert("New note added!");
+            let editedText = document.activeElement.value
+            if (editedText != null && editedText.trim() !== "") {
+                if (document.activeElement.id !== "newnote") {
+                    editedText = editedText.replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/\r?\n|\r/g, " ").trim();
+                    chrome.storage.sync.get(['notes'], function (result) {
+                        let updatedNotes = result.notes;
+                        index = parseInt(document.activeElement.id)
+                        updatedNotes[index] = editedText;
+                        chrome.storage.sync.set({'notes': updatedNotes}, function () {
+                            // alert("New note added!");
+                        })
                     })
-                })
-                location.reload()
+                    location.reload()
+                }
+                else {
+                    let newNoteText = document.getElementById("newnote").value
+                    newNoteText = newNoteText.replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/\r?\n|\r/g, " ").trim();
+                    chrome.storage.sync.get(['notes'], function (result) {
+                        let updatedNotes;
+                        if (result.notes != null) {
+                            updatedNotes = result.notes;
+                        } else {
+                            updatedNotes = [];
+                        }
+                        updatedNotes.push(newNoteText);
+                        chrome.storage.sync.set({'notes': updatedNotes}, function () {
+                            // alert("New note added!");
+                        })
+                    })
+                    location.reload()
+                }
             }
         }
     }, false);
